@@ -22,8 +22,8 @@ const int NUM_OPS = 12;
 
 class Table;
 class Row;
-class Query;
 class ConditionNode;
+class Query;
 class ValueNode;
 class ConstantNode;
 class BoolConstantNode;
