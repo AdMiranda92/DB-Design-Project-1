@@ -61,6 +61,6 @@ public:
 
 //Prints the given Table to an output stream
 //Format is the same as the CSV file
-ostream& operator<<(ostream&, const Table&);
+ostream& operator<<(ostream& os, const Table& table);
 
 #endif //__TABLE_H
