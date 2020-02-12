@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+
 using namespace std;
 
 //File name of table data file = (table name) + ".dat"
@@ -17,6 +19,12 @@ class Query;
 class Table
 {
 public:
+  vector<vector<string>> tableContents;
+  std::string name;
+  
+  //Class constructor
+  Table(string &name):name(name){}
+
   //Constructs a Table based on the data in the given CSV file
   //Name of Table should be the string before ".csv"
   static Table* readTableFromCSV(const string& file);
