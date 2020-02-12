@@ -13,6 +13,7 @@ int main()
     if (cmd == "READ")
     {
       cin >> cmd;
+      std::cout << cmd << '\n';
       in.open(cmd);
       if (in.is_open())
       {

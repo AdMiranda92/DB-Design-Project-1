@@ -33,10 +33,12 @@ public:
   static Table* getTableByName(const string& name);
 
   //Returns this table's name
-  string getName() const;
+  string getName() const {return name;};
 
   //Returns the datatype of the given attribute
-  datatype_t getAttributeType(const string& attName) const;
+  datatype_t getAttributeType(const string& attName) const{
+    return UNKNOWN;
+  };
 
   //Writes this Table to the file (name + ".dat")
   //Should be a binary file, but format is up to you
@@ -52,11 +54,30 @@ public:
 class Row
 {
 public:
+  int *year;
+  std::string *category, *entity;
+  bool *winner;
   //Creates a dummy row with no data
-  Row();
+  Row(){
+    year = nullptr;
+    category = nullptr;
+    entity = nullptr;
+    winner = nullptr;
+  };
 
   //Returns the value of the given attribute for this row
-  const void* getValue(const string& attName) const;
+  const void* getValue(const string& attName) const {
+    std::string name = attName;
+    if(name == "year"){
+      return year;
+    }else if(name == "category"){
+      return category;
+    }else if(name == "entity"){
+      return entity;
+    }else{
+      return winner;
+    }
+  };
 };
 
 //Prints the given Table to an output stream
