@@ -37,9 +37,29 @@ public:
 
   //Returns the datatype of the given attribute
   datatype_t getAttributeType(const string& attName) const{
+    string name = attName;
+    if(name == "year"){
+      return INT;
+    }
+
+    if(name == "category"){
+      return STRING;
+    }
+
+    if(name == "winner"){
+      return BOOL;
+    }
+
+    if(name == "entity"){
+      return STRING;
+    }
+
     return UNKNOWN;
   };
 
+  void addRow(vector<string>& values){
+    tableContents.push_back(values);
+  }
   //Writes this Table to the file (name + ".dat")
   //Should be a binary file, but format is up to you
   void writeToFile() const;
@@ -48,7 +68,13 @@ public:
   //The rows of the new Table should be the ones that cause q.getCondition()->getBoolValue(row) to return true
   //The attributes should be the ones returned by q.getAttributesToReturn(), unless
   // q.getAttributesToReturn returns the single attribute "*" (new table has all attributes)
-  Table* runQuery(Query& q) const;
+  Table* runQuery(Query& q) const{
+    Query *req = &q;
+    vector<string> attributes = req->getAttributesToReturn();
+
+    // need to search through the tableCOntents here
+    // req->getCondition()->getBoolValue(tableContents);
+  };
 };
 
 class Row

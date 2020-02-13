@@ -49,15 +49,9 @@ Table* Table::readTableFromCSV(const string& file){
 
 void Table::writeToFile() const{
   std::ofstream outputFile;
-  outputFile.open(name+".dat");
+  outputFile.open(name+".dat", ios::out | ios::binary);
   for(vector<string> i: tableContents){
-    for(int j=1; j<=i.size(); j++){
-      if(j%4 != 0){
-        outputFile << i[j-1] + ',';
-      }else{
-        outputFile << i[j-1] + '\n';
-      }
-    }
+    outputFile.write((char*)&i[0], i.size() * sizeof(string));
   }
   outputFile.close();
 };
@@ -75,21 +69,28 @@ Table* Table::runQuery(Query& q) const{
 Table* Table::getTableByName(const string& name){
   std::string tableName = name;
   Table *table = new Table(tableName);
-  return table;
+  ifstream inFile;
+  inFile.open(tableName+".dat", ios::in | ios::binary);
+  vector<string> info(4);
+  while(inFile.read((char*)&info, info.size * sizeof(string))){
+    table->addRow(info);
+    info.empty();
+  }
+    inFile.close();
 };
 
 ostream& operator<<(ostream& os, const Table& table){
-  string row;
+  string data;
   for(vector<string> i: table.tableContents){
     // we begin at one here to make the modulo operation work easier
     // so we can add the commas back using one if check
     for(int j=1; j<=i.size(); j++){
       if(j%4 != 0){
-        row += i[j-1] + ",";
+        data += i[j-1] + ",";
       }else{
-        row += i[j-1] + '\n';
+        data += i[j-1] + '\n';
       }
     }
   }
-  return os << row;
+  return os << data;
 };
