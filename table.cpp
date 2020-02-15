@@ -82,7 +82,9 @@ Table* Table::getTableByName(const string& name){
 
 ostream& operator<<(ostream& os, const Table& table){
   string data;
+  int counter = 0;
   for(vector<string> i: table.tableContents){
+    counter++;
     // we begin at one here to make the modulo operation work easier
     // so we can add the commas back using one if check
     for(int j=1; j<=i.size(); j++){
@@ -93,5 +95,6 @@ ostream& operator<<(ostream& os, const Table& table){
       }
     }
   }
+  data += std::to_string(counter) + " rows\n";
   return os << data;
 };
