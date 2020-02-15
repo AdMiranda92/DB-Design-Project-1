@@ -68,13 +68,7 @@ public:
   //The rows of the new Table should be the ones that cause q.getCondition()->getBoolValue(row) to return true
   //The attributes should be the ones returned by q.getAttributesToReturn(), unless
   // q.getAttributesToReturn returns the single attribute "*" (new table has all attributes)
-  Table* runQuery(Query& q) const{
-    Query *req = &q;
-    vector<string> attributes = req->getAttributesToReturn();
-
-    // need to search through the tableCOntents here
-    // req->getCondition()->getBoolValue(tableContents);
-  };
+  Table* runQuery(Query& q) const;
 };
 
 class Row

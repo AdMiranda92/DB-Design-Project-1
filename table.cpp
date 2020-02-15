@@ -72,11 +72,12 @@ Table* Table::getTableByName(const string& name){
   ifstream inFile;
   inFile.open(tableName+".dat", ios::in | ios::binary);
   vector<string> info(4);
-  while(inFile.read((char*)&info, info.size * sizeof(string))){
+  while(inFile.read((char*)&info, info.size() * sizeof(string))){
     table->addRow(info);
     info.empty();
   }
     inFile.close();
+    return table;
 };
 
 ostream& operator<<(ostream& os, const Table& table){
